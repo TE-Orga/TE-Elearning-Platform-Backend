@@ -1,66 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TE-Elearning-Platform-Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+TE-Elearning-Platform-Backend est le backend d'une plateforme d'apprentissage en ligne, développé avec Laravel. Il gère les fonctionnalités principales telles que l'authentification, la gestion des cours, des utilisateurs, et la communication avec la base de données. Ce projet est conçu pour être performant, sécurisé et extensible.
 
-## About Laravel
+---
+resources/
+├── views/
+│   ├── auth/                   # Authentication-related views
+│   │   ├── login.blade.php
+│   │   ├── register.blade.php
+│   │   ├── forgot-password.blade.php
+│   └── dashboards/             # Dashboards for different roles
+│       ├── admin-dashboard.blade.php
+│       ├── coach-dashboard.blade.php
+│       ├── user-dashboard.blade.php
+│   ├── courses/                # Course management views
+│       ├── index.blade.php       # List of courses
+│       ├── show.blade.php        # Course details
+│       ├── create.blade.php      # Create course form
+│       ├── edit.blade.php        # Edit course form
+│   ├── exams/                  # Exam management views
+│       ├── index.blade.php       # List of exams
+│       ├── show.blade.php        # Exam details
+│       ├── take.blade.php        # Take exam page
+│   ├── hse/                    # HSE training and reporting
+│       ├── training.blade.php
+│       ├── dashboard.blade.php
+│   ├── users/                  # User management views
+│       ├── index.blade.php       # List of users
+│       ├── show.blade.php        # User details
+│   ├── shared/                 # Shared or reusable views
+│       ├── not-found.blade.php
+│       ├── error.blade.php
+│   └── settings/               # Application or user settings
+│       ├── general.blade.php     # General settings
+│       ├── profile.blade.php     # User profile settings
+│
+└── layouts/                    # Application layouts
+    ├── app.blade.php             # Main layout for authenticated users
+    ├── guest.blade.php           # Layout for guest (unauthenticated) users
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## **Description des composants**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### **auth/**
+- **login.blade.php** : Formulaire de connexion pour les utilisateurs.
+- **register.blade.php** : Formulaire d'inscription pour les nouveaux utilisateurs.
+- **forgot-password.blade.php** : Formulaire de récupération du mot de passe.
 
-## Learning Laravel
+### **dashboards/**
+- **admin-dashboard.blade.php** : Tableau de bord pour les administrateurs pour gérer les cours, utilisateurs, et surveiller les activités.
+- **coach-dashboard.blade.php** : Tableau de bord pour les coaches pour gérer leurs cours et utilisateurs inscrits.
+- **user-dashboard.blade.php** : Tableau de bord utilisateur pour suivre les progrès, voir les cours et accéder aux examens.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### **courses/**
+- **index.blade.php** : Affiche la liste des cours disponibles.
+- **show.blade.php** : Détails d'un cours spécifique.
+- **create.blade.php** : Formulaire pour créer un nouveau cours.
+- **edit.blade.php** : Formulaire pour modifier un cours existant.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### **exams/**
+- **index.blade.php** : Liste des examens disponibles.
+- **show.blade.php** : Détails d'un examen.
+- **take.blade.php** : Interface pour passer un examen.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### **hse/**
+- **training.blade.php** : Contenu de formation HSE pour les utilisateurs.
+- **dashboard.blade.php** : Tableau de bord pour les rapports et le statut de formation HSE.
 
-## Laravel Sponsors
+### **users/**
+- **index.blade.php** : Liste des utilisateurs.
+- **show.blade.php** : Détails d'un utilisateur.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### **shared/**
+- **not-found.blade.php** : Page d'erreur 404.
+- **error.blade.php** : Page d'erreur générale.
 
-### Premium Partners
+### **settings/**
+- **general.blade.php** : Paramètres généraux de l'application (administrateurs).
+- **profile.blade.php** : Paramètres du profil utilisateur.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### **layouts/**
+- **app.blade.php** : Layout principal pour les utilisateurs authentifiés (avec en-tête, barre latérale, et pied de page).
+- **guest.blade.php** : Layout simplifié pour les utilisateurs non authentifiés (par exemple, pages de connexion).
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## **Contributeurs**
+Merci à l'équipe pour ses contributions. Pour signaler un bug ou proposer une fonctionnalité, veuillez utiliser l'onglet [Issues](https://github.com/votre-repo/issues).
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## **Licence**
+Ce projet est sous licence [MIT](https://opensource.org/licenses/MIT).

@@ -3,6 +3,218 @@
 TE-Elearning-Platform-Backend est le backend d'une plateforme d'apprentissage en ligne, développé avec Laravel. Il gère les fonctionnalités principales telles que l'authentification, la gestion des cours, des utilisateurs, et la communication avec la base de données. Ce projet est conçu pour être performant, sécurisé et extensible.
 
 ---
+## **Database Schema Structure**
+```txt
+database/
+├── migrations/
+│   ├── 2024_12_09_000001_create_users_table.php           # Users table
+│   ├── 2024_12_09_000002_create_courses_table.php         # Courses table
+│   ├── 2024_12_09_000003_create_exams_table.php           # Exams table
+│   ├── 2024_12_09_000004_create_enrollments_table.php     # Enrollments table
+│   ├── 2024_12_09_000005_create_exam_results_table.php    # Exam Results table
+│   ├── 2024_12_09_000006_create_questions_table.php       # Questions table
+│   ├── 2024_12_09_000007_create_answers_table.php         # Answers table
+│   ├── 2024_12_09_000008_create_hse_trainings_table.php   # HSE Trainings table
+│   ├── 2024_12_09_000009_create_roles_table.php           # User roles table
+│   ├── 2024_12_09_000010_create_permissions_table.php     # User permissions table
+│   ├── 2024_12_09_000011_create_user_permissions_table.php # Pivot table between users and permissions
+│   └── 2024_12_09_000012_create_course_exams_table.php    # Pivot table between courses and exams
+├── seeders/
+│   ├── UserSeeder.php             # Seeds for the users
+│   ├── CourseSeeder.php           # Seeds for the courses
+│   ├── ExamSeeder.php             # Seeds for the exams
+│   ├── EnrollmentSeeder.php       # Seeds for the enrollments
+│   ├── QuestionSeeder.php         # Seeds for the questions
+│   ├── AnswerSeeder.php           # Seeds for the answers
+│   ├── HSETrainingSeeder.php      # Seeds for HSE training data
+│   └── RoleSeeder.php             # Seeds for the roles
+└── factories/
+    ├── UserFactory.php            # Factory for creating users
+    ├── CourseFactory.php          # Factory for creating courses
+    ├── ExamFactory.php            # Factory for creating exams
+    ├── EnrollmentFactory.php      # Factory for creating enrollments
+    ├── QuestionFactory.php        # Factory for creating questions
+    └── AnswerFactory.php          # Factory for creating answers
+```
+## Description of the Tables
+
+### `users` table
+Stores information about the users (students, admins, coaches).
+
+**Fields:**
+- `id`
+- `name`
+- `email`
+- `password`
+- `role_id`
+- `created_at`
+- `updated_at`
+
+---
+
+### `courses` table
+Contains information about courses.
+
+**Fields:**
+- `id`
+- `title`
+- `description`
+- `creator_id`
+- `status`
+- `start_date`
+- `end_date`
+- `created_at`
+- `updated_at`
+
+---
+
+### `exams` table
+Stores information about exams associated with courses.
+
+**Fields:**
+- `id`
+- `title`
+- `description`
+- `course_id`
+- `created_at`
+- `updated_at`
+
+---
+
+### `enrollments` table
+Tracks which users are enrolled in which courses.
+
+**Fields:**
+- `id`
+- `user_id`
+- `course_id`
+- `created_at`
+- `updated_at`
+
+**Constraints:**
+- `user_id`, `course_id` should be unique (a user can only be enrolled in a course once).
+
+---
+
+### `exam_results` table
+Stores the results of users' exams.
+
+**Fields:**
+- `id`
+- `user_id`
+- `exam_id`
+- `score`
+- `status`
+- `created_at`
+- `updated_at`
+
+**Status:** 
+- e.g., `passed`, `failed`
+
+---
+
+### `questions` table
+Stores the questions for exams.
+
+**Fields:**
+- `id`
+- `exam_id`
+- `question_text`
+- `correct_answer`
+- `created_at`
+- `updated_at`
+
+---
+
+### `answers` table
+Stores answers related to each question.
+
+**Fields:**
+- `id`
+- `question_id`
+- `answer_text`
+- `is_correct`
+- `created_at`
+- `updated_at`
+
+---
+
+### `hse_trainings` table
+Stores data about Health, Safety, and Environment (HSE) trainings.
+
+**Fields:**
+- `id`
+- `user_id`
+- `training_title`
+- `completion_status`
+- `completion_date`
+- `created_at`
+- `updated_at`
+
+---
+
+### `roles` table
+Defines the different roles for users (e.g., admin, coach, user).
+
+**Fields:**
+- `id`
+- `role_name`
+- `created_at`
+- `updated_at`
+
+---
+
+### `permissions` table
+Defines permissions for different roles (e.g., can create course, take exam).
+
+**Fields:**
+- `id`
+- `permission_name`
+- `created_at`
+- `updated_at`
+
+---
+
+### `user_permissions` table
+A pivot table to link users with specific permissions.
+
+**Fields:**
+- `user_id`
+- `permission_id`
+
+---
+
+### `course_exams` table
+A pivot table to link courses with the exams associated with them.
+
+**Fields:**
+- `course_id`
+- `exam_id`
+
+---
+
+## Relationships
+
+- **User to Role:**
+  - A user has one role. The `roles` table defines the role (e.g., admin, coach, student).
+
+- **User to Enrollment:**
+  - A user can enroll in many courses through the `enrollments` table.
+
+- **Course to Exam:**
+  - A course can have many exams, and an exam belongs to one course.
+
+- **User to ExamResult:**
+  - A user can have multiple exam results (one for each exam they take).
+
+- **Exam to Question:**
+  - An exam has many questions. Each question is associated with one exam.
+
+- **Question to Answer:**
+  - A question can have many possible answers. One answer is correct.
+
+- **User to HSETraining:**
+  - A user can complete multiple HSE training courses.
 
 ## **Structure du répertoire**
 

@@ -42,7 +42,7 @@ resources/
 └── layouts/                    # Layouts de l'application
     ├── app.blade.php           # Layout principal pour les utilisateurs connectés
     ├── guest.blade.php         # Layout pour les utilisateurs invités
-
+```
 
 ## **Description des composants**
 

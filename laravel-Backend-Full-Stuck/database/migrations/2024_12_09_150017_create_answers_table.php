@@ -14,10 +14,10 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
-            $table->id(); // Primary Key (auto-incrementing ID)
+            $table->id(); // Primary Key
             $table->text('answer'); // The answer text
-            $table->unsignedBigInteger('question_id'); // Foreign key to the questions table
-            $table->boolean('is_correct')->default(false); // Flag to indicate if the answer is correct
+            $table->unsignedBigInteger('question_id'); // Foreign key to questions table
+            $table->boolean('is_correct')->default(false); // Flag for correct answer
             $table->timestamps(); // Created at and updated at fields
 
             // Foreign key constraint

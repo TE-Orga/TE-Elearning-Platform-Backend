@@ -16,8 +16,9 @@ class CreateExamsTable extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->id(); // Primary Key (auto-incrementing ID)
             $table->string('title'); // Title of the exam
-            $table->text('description'); // Description of the exam
+            $table->text('description')->nullable(); // Description of the exam (nullable)
             $table->unsignedBigInteger('course_id'); // Foreign key to the courses table
+            $table->enum('status', ['active', 'inactive'])->default('active'); // Status of the exam
             $table->timestamps(); // Created at and updated at fields
 
             // Foreign key constraint

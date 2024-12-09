@@ -15,8 +15,10 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id(); // Primary Key (auto-incrementing ID)
-            $table->text('question'); // The question text
+            $table->text('question_text'); // The question text
+            $table->string('question_type'); // The type of the question (e.g., multiple choice, true/false)
             $table->unsignedBigInteger('exam_id'); // Foreign key to the exams table
+            $table->string('correct_answer'); // The correct answer for the question
             $table->timestamps(); // Created at and updated at fields
 
             // Foreign key constraint

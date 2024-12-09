@@ -4,21 +4,28 @@ namespace Database\Seeders;
 
 use App\Models\Exam;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\QueryException;
 
 class ExamSeeder extends Seeder
 {
     public function run()
     {
-        Exam::create([
-            'course_id' => 1,  // Assuming Course ID 1 exists
-            'exam_title' => 'Safety Training Exam',
-            'total_marks' => 100,
-        ]);
+        try {
+            Exam::create([
+                'title' => 'Sample Exam 1',
+                'description' => 'Description for Sample Exam 1',
+                'course_id' => 1, // Assuming a course with ID 1 exists
+                'status' => 'active',
+            ]);
 
-        Exam::create([
-            'course_id' => 2,  // Assuming Course ID 2 exists
-            'exam_title' => 'Fire Safety Exam',
-            'total_marks' => 100,
-        ]);
+            Exam::create([
+                'title' => 'Sample Exam 2',
+                'description' => 'Description for Sample Exam 2',
+                'course_id' => 1, // Assuming a course with ID 1 exists
+                'status' => 'active',
+            ]);
+        } catch (QueryException $e) {
+            echo "Error seeding exams: " . $e->getMessage();
+        }
     }
 }

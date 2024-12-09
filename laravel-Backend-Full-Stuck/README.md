@@ -3,6 +3,55 @@
 TE-Elearning-Platform-Backend est le backend d'une plateforme d'apprentissage en ligne, développé avec Laravel. Il gère les fonctionnalités principales telles que l'authentification, la gestion des cours, des utilisateurs, et la communication avec la base de données. Ce projet est conçu pour être performant, sécurisé et extensible.
 
 ---
+## **Creating Migrations for Database Tables**
+
+To set up the necessary database tables for the TE-Elearning-Platform, you can generate the migrations using the following commands. Each command creates a migration for a corresponding table in the database.
+
+### **Step-by-step Migration Creation**
+
+1. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+2. **Create the `admins` table migration:**
+    This will generate a migration for the admins table, which stores the admin-specific data.
+   ```bash
+    php artisan make:migration create_admins_table --create=admins
+   ```
+3. **Create the `courses` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+4. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+5. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+6. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+7. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+8. **Create the `users` table migration:**
+   This command will generate a migration file for the `users` table.
+   ```bash
+   php artisan make:migration create_users_table --create=users
+   ```
+
+
+
 ## **Database Schema Structure**
 ```txt
 database/

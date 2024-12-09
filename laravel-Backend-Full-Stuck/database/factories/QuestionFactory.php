@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Exam;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'exam_id' => Exam::factory(), // Randomly generates an associated Exam
+            'question_text' => $this->faker->sentence(), // Random question text
+            'created_at' => now(), // Timestamp
+            'updated_at' => now(), // Timestamp
         ];
     }
 }

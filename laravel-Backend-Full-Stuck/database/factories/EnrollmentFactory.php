@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Enrollment;
+use App\Models\User;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,10 @@ class EnrollmentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => User::factory(), // Generates a random associated User
+            'course_id' => Course::factory(), // Generates a random associated Course
+            'created_at' => now(), // Timestamp
+            'updated_at' => now(), // Timestamp
         ];
     }
 }

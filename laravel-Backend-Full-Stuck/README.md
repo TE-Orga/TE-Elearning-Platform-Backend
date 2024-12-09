@@ -3,43 +3,46 @@
 TE-Elearning-Platform-Backend est le backend d'une plateforme d'apprentissage en ligne, développé avec Laravel. Il gère les fonctionnalités principales telles que l'authentification, la gestion des cours, des utilisateurs, et la communication avec la base de données. Ce projet est conçu pour être performant, sécurisé et extensible.
 
 ---
+
+## **Structure du répertoire**
+
+```txt
 resources/
 ├── views/
-│   ├── auth/                   # Authentication-related views
-│   │   ├── login.blade.php
-│   │   ├── register.blade.php
-│   │   ├── forgot-password.blade.php
-│   └── dashboards/             # Dashboards for different roles
-│       ├── admin-dashboard.blade.php
-│       ├── coach-dashboard.blade.php
-│       ├── user-dashboard.blade.php
-│   ├── courses/                # Course management views
-│       ├── index.blade.php       # List of courses
-│       ├── show.blade.php        # Course details
-│       ├── create.blade.php      # Create course form
-│       ├── edit.blade.php        # Edit course form
-│   ├── exams/                  # Exam management views
-│       ├── index.blade.php       # List of exams
-│       ├── show.blade.php        # Exam details
-│       ├── take.blade.php        # Take exam page
-│   ├── hse/                    # HSE training and reporting
-│       ├── training.blade.php
-│       ├── dashboard.blade.php
-│   ├── users/                  # User management views
-│       ├── index.blade.php       # List of users
-│       ├── show.blade.php        # User details
-│   ├── shared/                 # Shared or reusable views
-│       ├── not-found.blade.php
-│       ├── error.blade.php
-│   └── settings/               # Application or user settings
-│       ├── general.blade.php     # General settings
-│       ├── profile.blade.php     # User profile settings
+│   ├── auth/                   # Vues liées à l'authentification
+│   │   ├── login.blade.php     # Page de connexion
+│   │   ├── register.blade.php  # Page d'inscription
+│   │   ├── forgot-password.blade.php # Page de récupération du mot de passe
+│   └── dashboards/             # Tableaux de bord selon les rôles
+│       ├── admin-dashboard.blade.php # Tableau de bord administrateur
+│       ├── coach-dashboard.blade.php # Tableau de bord coach
+│       ├── user-dashboard.blade.php  # Tableau de bord utilisateur
+│   ├── courses/                # Gestion des cours
+│       ├── index.blade.php     # Liste des cours
+│       ├── show.blade.php      # Détails d'un cours
+│       ├── create.blade.php    # Formulaire de création de cours
+│       ├── edit.blade.php      # Formulaire de modification de cours
+│   ├── exams/                  # Gestion des examens
+│       ├── index.blade.php     # Liste des examens
+│       ├── show.blade.php      # Détails d'un examen
+│       ├── take.blade.php      # Interface pour passer un examen
+│   ├── hse/                    # Formation et rapports HSE
+│       ├── training.blade.php  # Contenu de formation HSE
+│       ├── dashboard.blade.php # Tableau de bord HSE
+│   ├── users/                  # Gestion des utilisateurs
+│       ├── index.blade.php     # Liste des utilisateurs
+│       ├── show.blade.php      # Détails d'un utilisateur
+│   ├── shared/                 # Vues réutilisables
+│       ├── not-found.blade.php # Page 404
+│       ├── error.blade.php     # Page d'erreur générale
+│   └── settings/               # Paramètres de l'application ou utilisateur
+│       ├── general.blade.php   # Paramètres généraux
+│       ├── profile.blade.php   # Paramètres du profil utilisateur
 │
-└── layouts/                    # Application layouts
-    ├── app.blade.php             # Main layout for authenticated users
-    ├── guest.blade.php           # Layout for guest (unauthenticated) users
+└── layouts/                    # Layouts de l'application
+    ├── app.blade.php           # Layout principal pour les utilisateurs connectés
+    ├── guest.blade.php         # Layout pour les utilisateurs invités
 
----
 
 ## **Description des composants**
 

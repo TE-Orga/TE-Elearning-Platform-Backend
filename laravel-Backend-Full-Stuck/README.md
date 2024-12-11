@@ -20,34 +20,34 @@ To set up the necessary database tables for the TE-Elearning-Platform, you can g
     php artisan make:migration create_admins_table --create=admins
    ```
 3. **Create the `courses` table migration:**
-   This command will generate a migration file for the `users` table.
+   This command will generate a migration file for the `courses` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_courses_table --create=courses
    ```
-4. **Create the `users` table migration:**
-   This command will generate a migration file for the `users` table.
+4. **Create the `exams` table migration:**
+   This command will generate a migration file for the `exams` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_exams_table --create=exams
    ```
-5. **Create the `users` table migration:**
-   This command will generate a migration file for the `users` table.
+5. **Create the `questions` table migration:**
+   This command will generate a migration file for the `questions` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_questions_table --create=questions
    ```
-6. **Create the `users` table migration:**
-   This command will generate a migration file for the `users` table.
+6. **Create the `answers` table migration:**
+   This command will generate a migration file for the `answers` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_answers_table --create=answers
    ```
-7. **Create the `users` table migration:**
-   This command will generate a migration file for the `users` table.
+7. **Create the `enrollments` table migration:**
+   This command will generate a migration file for the `enrollments` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_enrollments_table --create=enrollments
    ```
-8. **Create the `users` table migration:**
-   This command will generate a migration file for the `users` table.
+8. **Create the `exam_results` table migration:**
+   This command will generate a migration file for the `exam_results` table.
    ```bash
-   php artisan make:migration create_users_table --create=users
+   php artisan make:migration create_exam_results_table --create=exam_results
    ```
 
 

@@ -14,7 +14,11 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        //
+        // Fetch all enrollments from the database
+        $enrollments = Enrollment::all();
+
+        // Return the enrollments as a JSON response
+        return response()->json($enrollments);
     }
 
     /**
@@ -24,7 +28,8 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        //
+        // Optionally, return a form or message for creating an enrollment
+        return response()->json(['message' => 'Show form for creating an enrollment']);
     }
 
     /**
@@ -35,7 +40,25 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'course_id' => 'required|exists:courses,id',
+            'enrolled_at' => 'required|date',
+        ]);
+
+        // Create the new enrollment record
+        $enrollment = Enrollment::create([
+            'user_id' => $validated['user_id'],
+            'course_id' => $validated['course_id'],
+            'enrolled_at' => $validated['enrolled_at'],
+        ]);
+
+        // Return the created enrollment as a response
+        return response()->json([
+            'message' => 'Enrollment created successfully',
+            'enrollment' => $enrollment
+        ], 201);
     }
 
     /**
@@ -46,7 +69,8 @@ class EnrollmentController extends Controller
      */
     public function show(Enrollment $enrollment)
     {
-        //
+        // Return the enrollment details as a JSON response
+        return response()->json($enrollment);
     }
 
     /**
@@ -57,7 +81,8 @@ class EnrollmentController extends Controller
      */
     public function edit(Enrollment $enrollment)
     {
-        //
+        // Optionally, return a form or message for editing the enrollment
+        return response()->json(['message' => 'Show form for editing enrollment']);
     }
 
     /**
@@ -69,7 +94,21 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, Enrollment $enrollment)
     {
-        //
+        // Validate the incoming data
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'course_id' => 'nullable|exists:courses,id',
+            'enrolled_at' => 'nullable|date',
+        ]);
+
+        // Update the enrollment with the provided data
+        $enrollment->update(array_filter($validated)); // Only update non-null fields
+
+        // Return the updated enrollment as a response
+        return response()->json([
+            'message' => 'Enrollment updated successfully',
+            'enrollment' => $enrollment
+        ]);
     }
 
     /**
@@ -80,6 +119,12 @@ class EnrollmentController extends Controller
      */
     public function destroy(Enrollment $enrollment)
     {
-        //
+        // Delete the enrollment from the database
+        $enrollment->delete();
+
+        // Return a success message
+        return response()->json([
+            'message' => 'Enrollment deleted successfully'
+        ]);
     }
 }

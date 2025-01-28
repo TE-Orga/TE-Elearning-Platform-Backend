@@ -43,56 +43,89 @@ class User extends Authenticatable
         'date_visit' => 'date',
     ];
 
+    /**
+     * Relationship with enrollments (for courses/exams).
+     */
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
     }
 
+    /**
+     * Relationship with exam results.
+     */
     public function examResults()
     {
         return $this->hasMany(ExamResult::class);
     }
 
+    /**
+     * Relationship with courses (many-to-many).
+     */
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'enrollments');
     }
 
+    /**
+     * Relationship with exams (many-to-many).
+     */
     public function exams()
     {
         return $this->belongsToMany(Exam::class, 'enrollments');
     }
 
+    /**
+     * Scope to filter by role.
+     */
     public function scopeRole($query, $role)
     {
         return $query->where('role', $role);
     }
 
+    /**
+     * Scope to filter only active users.
+     */
     public function scopeActive($query)
     {
         return $query->whereNotNull('email_verified_at');
     }
 
+    /**
+     * Accessor for the full name of the user.
+     */
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
+    /**
+     * Accessor for the role display (e.g., capitalize role).
+     */
     public function getRoleDisplayAttribute()
     {
         return ucfirst($this->role);
     }
 
+    /**
+     * Mutator for first name (capitalize).
+     */
     public function setFirstNameAttribute($value)
     {
         $this->attributes['first_name'] = ucfirst(strtolower($value));
     }
 
+    /**
+     * Mutator for password (hash it before saving).
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
     }
 
+    /**
+     * Check if the user is an employee.
+     */
     public function isEmployee()
     {
         return $this->role === 'employee';

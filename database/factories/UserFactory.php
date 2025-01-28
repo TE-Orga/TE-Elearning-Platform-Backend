@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
@@ -22,23 +24,27 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt('password'), // Use bcrypt for password hashing
+            'password' => bcrypt('password123'),
             'phone_number' => $this->faker->phoneNumber(),
-            'role' => $this->faker->randomElement(['employee', 'contractor', 'visitor']), // Random role
-            'department' => $this->faker->optional()->word(), // Only for employees
-            'valuestream' => $this->faker->optional()->word(), // Only for employees
-            'manager' => $this->faker->optional()->name(), // Only for employees
-            'te_id' => $this->faker->optional()->word(), // Only for employees
-            'date_visit' => $this->faker->optional()->date(), // Only for visitors
-            'cin_passport_picture' => $this->faker->optional()->imageUrl(), // For picture of ID
-            'etablissement' => $this->faker->optional()->word(), // Only for visitors
-            'visit_purpose' => $this->faker->optional()->sentence(), // Only for visitors
-            'nationality' => $this->faker->optional()->word(), // Only for contractors
-            'enterprise' => $this->faker->optional()->company(), // Only for contractors
-            'visit_period' => $this->faker->optional()->sentence(), // Only for contractors
-            'collab_field' => $this->faker->optional()->word(), // Only for contractors
-            'created_at' => now(),
-            'updated_at' => now(),
+            'picture' => null,
+            'department' => $this->faker->randomElement([
+                'IT',
+                'HR',
+                'Finance',
+                'Engineering',
+                'Production',
+                'Quality'
+            ]),
+            'valuestream' => $this->faker->randomElement(['Development', 'Production', 'Testing']),
+            'manager' => $this->faker->name(),
+            'te_id' => 'TE' . $this->faker->unique()->randomNumber(3),
+            'date_visit' => $this->faker->date(),
+            'etablissement' => $this->faker->company(),
+            'visit_purpose' => $this->faker->sentence(),
+            'nationality' => $this->faker->country(),
+            'enterprise' => $this->faker->company(),
+            'visit_period' => $this->faker->randomElement(['3 months', '6 months', '1 year']),
+            'collab_field' => $this->faker->jobTitle(),
         ];
     }
 

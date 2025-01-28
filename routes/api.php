@@ -16,14 +16,13 @@ use App\Http\Controllers\Auth\AdminAuthController;
 |
 */
 
+Route::post('/register', [UserAuthController::class, 'register']);
+Route::post('/login', [UserAuthController::class, 'login']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::post('/logout', [UserAuthController::class, 'logout']);
+    Route::get('/me', [UserAuthController::class, 'me']);
 });
-
-Route::post('/register', [UserAuthController::class, 'register']);
-Route::post('/login', [UserAuthController::class, 'login']);

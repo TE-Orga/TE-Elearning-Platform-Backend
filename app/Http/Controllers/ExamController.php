@@ -14,7 +14,11 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        // Fetch all exams from the database
+        $exams = Exam::all();
+
+        // Return the exams as a JSON response
+        return response()->json($exams);
     }
 
     /**
@@ -24,7 +28,8 @@ class ExamController extends Controller
      */
     public function create()
     {
-        //
+        // Optionally, return a form or message for creating an exam
+        return response()->json(['message' => 'Show form for creating an exam']);
     }
 
     /**
@@ -35,7 +40,27 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id',
+            'exam_date' => 'required|date',
+            'duration' => 'required|integer', // Exam duration in minutes
+        ]);
+
+        // Create the new exam record
+        $exam = Exam::create([
+            'name' => $validated['name'],
+            'course_id' => $validated['course_id'],
+            'exam_date' => $validated['exam_date'],
+            'duration' => $validated['duration'],
+        ]);
+
+        // Return the created exam as a response
+        return response()->json([
+            'message' => 'Exam created successfully',
+            'exam' => $exam
+        ], 201);
     }
 
     /**
@@ -46,7 +71,8 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+        // Return the exam details as a JSON response
+        return response()->json($exam);
     }
 
     /**
@@ -57,7 +83,8 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        //
+        // Optionally, return a form or message for editing the exam
+        return response()->json(['message' => 'Show form for editing exam']);
     }
 
     /**
@@ -69,7 +96,22 @@ class ExamController extends Controller
      */
     public function update(Request $request, Exam $exam)
     {
-        //
+        // Validate the incoming data
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'course_id' => 'nullable|exists:courses,id',
+            'exam_date' => 'nullable|date',
+            'duration' => 'nullable|integer',
+        ]);
+
+        // Update the exam with the provided data
+        $exam->update(array_filter($validated)); // Only update non-null fields
+
+        // Return the updated exam as a response
+        return response()->json([
+            'message' => 'Exam updated successfully',
+            'exam' => $exam
+        ]);
     }
 
     /**
@@ -80,6 +122,12 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        //
+        // Delete the exam from the database
+        $exam->delete();
+
+        // Return a success message
+        return response()->json([
+            'message' => 'Exam deleted successfully'
+        ]);
     }
 }

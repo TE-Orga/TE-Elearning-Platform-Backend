@@ -14,7 +14,11 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        //
+        // Get all answers from the database
+        $answers = Answer::all();
+
+        // Return the list of answers as a JSON response
+        return response()->json($answers);
     }
 
     /**
@@ -24,7 +28,8 @@ class AnswerController extends Controller
      */
     public function create()
     {
-        //
+        // Optionally return a form for creating an answer (or leave empty for API)
+        return response()->json(['message' => 'Show form for creating an answer']);
     }
 
     /**
@@ -35,7 +40,25 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validated = $request->validate([
+            'question_id' => 'required|exists:questions,id', // Ensure the question exists
+            'answer_text' => 'required|string|max:255',
+            'is_correct' => 'required|boolean',
+        ]);
+
+        // Create the new answer
+        $answer = Answer::create([
+            'question_id' => $validated['question_id'],
+            'answer_text' => $validated['answer_text'],
+            'is_correct' => $validated['is_correct'],
+        ]);
+
+        // Return the created answer as a response
+        return response()->json([
+            'message' => 'Answer created successfully',
+            'answer' => $answer
+        ], 201);
     }
 
     /**
@@ -46,7 +69,8 @@ class AnswerController extends Controller
      */
     public function show(Answer $answer)
     {
-        //
+        // Return the answer details as a JSON response
+        return response()->json($answer);
     }
 
     /**
@@ -57,7 +81,8 @@ class AnswerController extends Controller
      */
     public function edit(Answer $answer)
     {
-        //
+        // Optionally, return a form or message for editing the answer
+        return response()->json(['message' => 'Show form for editing answer']);
     }
 
     /**
@@ -69,7 +94,20 @@ class AnswerController extends Controller
      */
     public function update(Request $request, Answer $answer)
     {
-        //
+        // Validate the incoming data
+        $validated = $request->validate([
+            'answer_text' => 'nullable|string|max:255',
+            'is_correct' => 'nullable|boolean',
+        ]);
+
+        // Update the answer with the provided data
+        $answer->update(array_filter($validated)); // Only update non-null fields
+
+        // Return the updated answer as a response
+        return response()->json([
+            'message' => 'Answer updated successfully',
+            'answer' => $answer
+        ]);
     }
 
     /**
@@ -80,6 +118,12 @@ class AnswerController extends Controller
      */
     public function destroy(Answer $answer)
     {
-        //
+        // Delete the answer from the database
+        $answer->delete();
+
+        // Return a success message
+        return response()->json([
+            'message' => 'Answer deleted successfully'
+        ]);
     }
 }

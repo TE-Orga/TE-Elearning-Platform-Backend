@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    nodejs \
+    npm \
     && docker-php-ext-install pdo_mysql gd
 
 # Install Composer
@@ -20,10 +22,11 @@ WORKDIR /var/www
 COPY . .
 
 # Install PHP dependencies
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www
-
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 # Expose port
 EXPOSE 9000
+CMD ["php-fpm"]

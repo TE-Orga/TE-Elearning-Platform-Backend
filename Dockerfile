@@ -11,9 +11,15 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    curl \
-    && docker-php-ext-configure gd \
+    curl
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -27,9 +33,18 @@ COPY . .
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# تثبيت اعتماديات Node.js وبناء الأصول
+RUN npm install
+RUN npm run build
+
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+    && chmod -R 775 /var/www/storage \
+    && chmod -R 775 /var/www/bootstrap/cache \
+    && mkdir -p /var/www/storage/logs \
+    && mkdir -p /var/www/storage/framework/views \
+    && chown -R www-data:www-data /var/www/storage/logs \
+    && chown -R www-data:www-data /var/www/storage/framework
 
 # Expose port 9000 and start PHP-FPM server
 EXPOSE 9000

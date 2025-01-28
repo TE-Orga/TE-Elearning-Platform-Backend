@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,11 +19,26 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => bcrypt('password'), // Use bcrypt for password hashing
+            'phone_number' => $this->faker->phoneNumber(),
+            'role' => $this->faker->randomElement(['employee', 'contractor', 'visitor']), // Random role
+            'department' => $this->faker->optional()->word(), // Only for employees
+            'valuestream' => $this->faker->optional()->word(), // Only for employees
+            'manager' => $this->faker->optional()->name(), // Only for employees
+            'te_id' => $this->faker->optional()->word(), // Only for employees
+            'date_visit' => $this->faker->optional()->date(), // Only for visitors
+            'cin_passport_picture' => $this->faker->optional()->imageUrl(), // For picture of ID
+            'etablissement' => $this->faker->optional()->word(), // Only for visitors
+            'visit_purpose' => $this->faker->optional()->sentence(), // Only for visitors
+            'nationality' => $this->faker->optional()->word(), // Only for contractors
+            'enterprise' => $this->faker->optional()->company(), // Only for contractors
+            'visit_period' => $this->faker->optional()->sentence(), // Only for contractors
+            'collab_field' => $this->faker->optional()->word(), // Only for contractors
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 

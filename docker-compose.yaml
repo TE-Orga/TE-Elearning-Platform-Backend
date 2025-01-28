@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: mohammed761/te-elearning-platform:latest
     container_name: TE-Elearning-Platform
     restart: unless-stopped
     working_dir: /var/www

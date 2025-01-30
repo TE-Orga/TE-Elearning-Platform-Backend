@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class CoachController extends Controller
 {
-    // Display the list of admins.
+    // Display the list of coaches.
     public function index()
     {
-        $admins = Admin::where('role', 1)->get(); // Filter by admin role
-        return response()->json($admins);
+        $coaches = Admin::where('role', 2)->get(); // Filter by coach role
+        return response()->json($coaches);
     }
 
-    // Store a new admin in the database.
+    // Store a new coach in the database.
     public function store(Request $request)
     {
         $request->validate([
@@ -22,49 +22,49 @@ class AdminController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|integer|in:1', // Ensure it's an admin role (1)
+            'role' => 'required|integer|in:2', // Ensure it's a coach role (2)
             'department' => 'nullable|string|max:255',
         ]);
 
-        $admin = Admin::create([
+        $coach = Admin::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 1,  // Admin role
+            'role' => 2,  // Coach role
             'department' => $request->department,
         ]);
 
-        return response()->json($admin, 201);
+        return response()->json($coach, 201);
     }
 
-    // Show the details of a specific admin.
-    public function show(Admin $admin)
+    // Show the details of a specific coach.
+    public function show(Admin $coach)
     {
-        return response()->json($admin);
+        return response()->json($coach);
     }
 
-    // Update a specific admin in the database.
-    public function update(Request $request, Admin $admin)
+    // Update a specific coach in the database.
+    public function update(Request $request, Admin $coach)
     {
         $request->validate([
             'first_name' => 'sometimes|required|string|max:255',
             'last_name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|string|email|max:255|unique:admins,email,' . $admin->id,
+            'email' => 'sometimes|required|string|email|max:255|unique:admins,email,' . $coach->id,
             'password' => 'sometimes|required|string|min:8|confirmed',
-            'role' => 'sometimes|required|integer|in:1', // Ensure it's an admin role (1)
+            'role' => 'sometimes|required|integer|in:2', // Ensure it's a coach role (2)
             'department' => 'nullable|string|max:255',
         ]);
 
-        $admin->update($request->only('first_name', 'last_name', 'email', 'password', 'role', 'department'));
+        $coach->update($request->only('first_name', 'last_name', 'email', 'password', 'role', 'department'));
 
-        return response()->json($admin);
+        return response()->json($coach);
     }
 
-    // Delete a specific admin from the database.
-    public function destroy(Admin $admin)
+    // Delete a specific coach from the database.
+    public function destroy(Admin $coach)
     {
-        $admin->delete();
+        $coach->delete();
         return response()->json(null, 204);
     }
 }

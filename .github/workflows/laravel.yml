@@ -24,12 +24,9 @@ jobs:
       with:
         php-version: '8.2'
     - uses: actions/checkout@v4
-    - name: Check PHP Version
-      run: php -v  # This will print the PHP version in the workflow logs
-    - name: Composer Self Update to Version 1
-      run: composer self-update --1  # Update Composer to version 1
-    - name: Update Composer Lock File
-      run: composer update --lock  # Update the lock file
+    - name: Install dockerize
+      run: |
+        curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar xz -C /usr/local/bin
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies

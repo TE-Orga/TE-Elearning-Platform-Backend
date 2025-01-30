@@ -1,186 +1,195 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <title>E-Learning Platform</title>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>HSE eLearning Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #007bff;
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50 transition-all duration-300"
-         x-data="{ scrolled: false }"
-         @scroll.window="scrolled = (window.pageYOffset > 20)">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-2xl font-bold text-blue-600">EduPlatform</a>
-                </div>
+<body>
 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 nav-link">Home</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 nav-link">Courses</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 nav-link">About</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 nav-link">Contact</a>
-                </div>
-
-                <div class="flex items-center space-x-4">
-                    <button class="bg-transparent hover:bg-blue-50 text-blue-600 font-semibold py-2 px-4 border border-blue-600 rounded btn-hover">
-                        Login
-                    </button>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded btn-hover">
-                        Sign Up
-                    </button>
-                </div>
-            </div>
+    <!-- Header Section -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4">Revolutionize HSE Training with Our Connected eLearning Platform</h1>
+            <p class="lead">Access interactive, tech-driven HSE courses anytime, anywhere. Stay compliant, stay safe.</p>
+            <a href="#" class="btn btn-primary btn-lg">Get Started Now</a>
+            <a href="#" class="btn btn-outline-light btn-lg">Request a Demo</a>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="pt-24 bg-gradient-to-b from-blue-50 to-white"
-         x-data="{ shown: false }"
-         x-init="setTimeout(() => shown = true, 100)"
-         x-show="shown"
-         x-transition:enter="transition ease-out duration-500"
-         x-transition:enter-start="opacity-0 transform translate-y-12"
-         x-transition:enter-end="opacity-100 transform translate-y-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="text-center">
-                <h1 class="text-5xl font-extrabold text-gray-900 mb-6">
-                    Transform Your Future with Online Learning
-                </h1>
-                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-                    Access world-class education and skills development resources to advance your career and achieve your goals.
-                </p>
-                <div class="space-x-4">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg btn-hover">
-                        Get Started
-                    </button>
-                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-lg text-lg btn-hover">
-                        View Courses
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </header>
 
     <!-- Features Section -->
-    <div class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900">Why Choose Us</h2>
-                <p class="mt-4 text-gray-600">Discover the advantages of learning with our platform</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 feature-card">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Expert Instructors</h3>
-                    <p class="text-gray-600">Learn from industry professionals and experienced educators</p>
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Choose Our HSE eLearning Platform?</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon">📚</div>
+                    <h3>Interactive Courses</h3>
+                    <p>Engaging multimedia content with quizzes and simulations.</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 delay-100 feature-card">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Flexible Learning</h3>
-                    <p class="text-gray-600">Study at your own pace and access content anytime, anywhere</p>
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Seamless Connectivity</h3>
+                    <p>Accessible on any device, even offline.</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 delay-200 feature-card">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Career Support</h3>
-                    <p class="text-gray-600">Get guidance and resources to advance your career</p>
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Tracking</h3>
+                    <p>Monitor progress and compliance effortlessly.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">EduPlatform</h3>
-                    <p class="text-gray-400">Empowering learners worldwide</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">About Us</a></li>
-                        <li><a href="#" class="hover:text-white">Courses</a></li>
-                        <li><a href="#" class="hover:text-white">Contact</a></li>
+    <!-- Benefits Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Transform Your HSE Training Experience</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>Reduce training costs with scalable solutions.</li>
+                        <li>Improve safety outcomes with up-to-date content.</li>
+                        <li>Ensure compliance with global standards.</li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-base font-semibold mb-3">Support</h4>
-                    <ul class="space-y-1.5 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-base font-semibold mb-3">Connect</h4>
-                    <ul class="space-y-1.5 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
+                <div class="col-md-6">
+                    <ul>
+                        <li>Enhance employee engagement through interactive learning.</li>
+                        <li>Collaborate with peers and experts in real-time.</li>
+                        <li>Automated reporting for audits.</li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-400">
-                <p>&copy; 2024 EduPlatform. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Users Are Saying</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <blockquote class="blockquote">
+                        <p>"This platform has transformed how we train our team. The courses are engaging, and the connectivity features are a game-changer!"</p>
+                        <footer class="blockquote-footer">John D., Safety Manager</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-6">
+                    <blockquote class="blockquote">
+                        <p>"The real-time tracking and reporting have made compliance audits a breeze. Highly recommend!"</p>
+                        <footer class="blockquote-footer">Sarah L., HSE Consultant</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Flexible Plans for Every Organization</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Basic Plan</h3>
+                            <p>Access to core HSE courses.</p>
+                            <a href="#" class="btn btn-primary">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Pro Plan</h3>
+                            <p>Full course library and advanced analytics.</p>
+                            <a href="#" class="btn btn-primary">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Enterprise Plan</h3>
+                            <p>Customizable solutions for large teams.</p>
+                            <a href="#" class="btn btn-primary">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            Is the platform compatible with mobile devices?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, our platform is fully responsive and works on all devices.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Can I track my team's progress?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely! Our platform provides real-time progress tracking and reporting.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Courses</a></li>
+                        <li><a href="#" class="text-white">Pricing</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>Email: support@hse-elearning.com</p>
+                    <p>Phone: +1 (800) 123-4567</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Buttons - Add hover effects -->
-    <style>
-        .btn-hover {
-            @apply transition-all duration-300 transform hover:scale-105;
-        }
-
-        .nav-link {
-            @apply relative;
-        }
-
-        .nav-link::after {
-            @apply content-[''] absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300;
-        }
-
-        .nav-link:hover::after {
-            @apply w-full;
-        }
-
-        .feature-card {
-            @apply opacity-0 transform translate-y-8;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-
-    <!-- Add scroll reveal effect -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fadeIn');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card').forEach((element) => {
-            observer.observe(element);
-        });
-    });
-    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

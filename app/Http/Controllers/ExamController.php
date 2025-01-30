@@ -8,78 +8,78 @@ use Illuminate\Http\Request;
 class ExamController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض قائمة الامتحانات.
      */
     public function index()
     {
-        //
+        $exams = Exam::all();
+        return response()->json($exams);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض نموذج لإنشاء امتحان جديد.
      */
     public function create()
     {
-        //
+        // يمكن إرجاع نموذج إنشاء الامتحان هنا
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * تخزين امتحان جديد في قاعدة البيانات.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255', // عنوان الامتحان
+            'description' => 'nullable|string', // وصف الامتحان
+            'date' => 'required|date', // تاريخ الامتحان
+            'duration' => 'required|integer', // مدة الامتحان
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $exam = Exam::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'date' => $request->date,
+            'duration' => $request->duration,
+            // إضافة المزيد من الحقول حسب الحاجة
+        ]);
+
+        return response()->json($exam, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * عرض تفاصيل امتحان معين.
      */
     public function show(Exam $exam)
     {
-        //
+        return response()->json($exam);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * تحديث امتحان معين في قاعدة البيانات.
      */
     public function update(Request $request, Exam $exam)
     {
-        //
+        $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string',
+            'date' => 'sometimes|required|date',
+            'duration' => 'sometimes|required|integer',
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $exam->update($request->only('title', 'description', 'date', 'duration'));
+
+        return response()->json($exam);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * حذف امتحان معين من قاعدة البيانات.
      */
     public function destroy(Exam $exam)
     {
-        //
+        $exam->delete();
+        return response()->json(null, 204);
     }
 }

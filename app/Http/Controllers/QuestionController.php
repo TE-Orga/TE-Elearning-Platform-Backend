@@ -8,78 +8,74 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض قائمة الأسئلة.
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+        return response()->json($questions);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض نموذج لإنشاء سؤال جديد.
      */
     public function create()
     {
-        //
+        // يمكن إرجاع نموذج إنشاء السؤال هنا
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * تخزين سؤال جديد في قاعدة البيانات.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'exam_id' => 'required|exists:exams,id', // تأكد من وجود الامتحان
+            'content' => 'required|string|max:1000', // محتوى السؤال
+            'type' => 'required|string|in:multiple_choice,short_answer', // نوع السؤال
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $question = Question::create([
+            'exam_id' => $request->exam_id,
+            'content' => $request->content,
+            'type' => $request->type,
+            // إضافة المزيد من الحقول حسب الحاجة
+        ]);
+
+        return response()->json($question, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * عرض تفاصيل سؤال معين.
      */
     public function show(Question $question)
     {
-        //
+        return response()->json($question);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * تحديث سؤال معين في قاعدة البيانات.
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $request->validate([
+            'content' => 'sometimes|required|string|max:1000',
+            'type' => 'sometimes|required|string|in:multiple_choice,short_answer',
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $question->update($request->only('content', 'type'));
+
+        return response()->json($question);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * حذف سؤال معين من قاعدة البيانات.
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return response()->json(null, 204);
     }
 }

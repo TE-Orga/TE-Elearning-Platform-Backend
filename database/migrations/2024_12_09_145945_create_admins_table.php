@@ -21,7 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('password'); // Hashed password
             $table->string('picture')->nullable(); // Admin's picture, nullable
             $table->string('phone_number')->nullable(); // Admin's phone number, nullable
-            $table->enum('role', ['admin', 'coach']); // Role: admin or coach
+            $table->integer('role'); // For numeric role representation
             $table->string('te_id')->nullable(); // Admin's TE ID (if applicable)
             $table->timestamps(); // Created at and updated at fields
         });

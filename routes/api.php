@@ -1,31 +1,38 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+//----------------------------Authentication Routes For Users--------------------------------
+// In routes/web.php or routes/api.php
+Route::post('login', [AuthAdminController::class, 'login'])->name('login');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Register login logout for user
+Route::post('/register', [AuthUserController::class, 'register']);
+Route::post('/login', [AuthUserController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthUserController::class, 'logout']);
 
+// Register login logout for admin
+Route::post('/Te-Admin-register', [AuthAdminController::class, 'register']);
+Route::post('/Admin-login', action: [AuthAdminController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/Admin-logout', [AuthAdminController::class, 'logout']);
 
-Route::post('login', function (Request $request) {
-    $user = User::where('email', $request->email)->first();
+//----------------------------User Routes--------------------------------
+Route::middleware('auth:sanctum')->group(function () {
+    // Get a list of all users (for admin or authorized users)
+    Route::get('/users', [UserController::class, 'index']); // Get all users
 
-    if ($user && Hash::check($request->password, $user->password)) {
-        return $user->createToken('YourAppName')->plainTextToken;
-    }
+    // Get a specific user by ID
+    Route::get('/users/{id}', [UserController::class, 'show']); // Get a specific user by ID
 
-    return response()->json(['message' => 'Unauthorized'], 401);
+    // Create a new user (requires admin or authorized role)
+    Route::post('/users', [UserController::class, 'store']); // Create a new user
+
+    // Update an existing user (by user ID)
+    Route::put('/users/{id}', [UserController::class, 'update']); // Update a user
+
+    // Delete a user (by user ID)
+    Route::delete('/users/{id}', [UserController::class, 'destroy']); // Delete a user
 });

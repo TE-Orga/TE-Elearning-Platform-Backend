@@ -8,78 +8,84 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض قائمة المسؤولين.
      */
     public function index()
     {
-        //
+        $admins = Admin::all();
+        return response()->json($admins);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض نموذج لإنشاء مسؤول جديد.
      */
     public function create()
     {
-        //
+        // يمكن إرجاع نموذج إنشاء المسؤول هنا
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * تخزين مسؤول جديد في قاعدة البيانات.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|max:50', // إضافة حقل الدور
+            'department' => 'nullable|string|max:255', // إضافة حقل القسم
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $admin = Admin::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+            'department' => $request->department,
+            // إضافة المزيد من الحقول حسب الحاجة
+        ]);
+
+        return response()->json($admin, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
+     * عرض تفاصيل مسؤول معين.
      */
     public function show(Admin $admin)
     {
-        //
+        return response()->json($admin);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
+     * تحديث مسؤول معين في قاعدة البيانات.
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        $request->validate([
+            'first_name' => 'sometimes|required|string|max:255',
+            'last_name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:admins,email,' . $admin->id,
+            'password' => 'sometimes|required|string|min:8|confirmed',
+            'role' => 'sometimes|required|string|max:50', // إضافة حقل الدور
+            'department' => 'nullable|string|max:255', // إضافة حقل القسم
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $admin->update($request->only('first_name', 'last_name', 'email', 'password', 'role', 'department'));
+
+        return response()->json($admin);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
+     * حذف مسؤول معين من قاعدة البيانات.
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+        return response()->json(null, 204);
     }
 }

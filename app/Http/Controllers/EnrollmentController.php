@@ -8,78 +8,75 @@ use Illuminate\Http\Request;
 class EnrollmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض قائمة التسجيلات.
      */
     public function index()
     {
-        //
+        $enrollments = Enrollment::all();
+        return response()->json($enrollments);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض نموذج لإنشاء تسجيل جديد.
      */
     public function create()
     {
-        //
+        // يمكن إرجاع نموذج إنشاء التسجيل هنا
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * تخزين تسجيل جديد في قاعدة البيانات.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id', // تأكد من وجود المستخدم
+            'course_id' => 'required|exists:courses,id', // تأكد من وجود الدورة
+            'status' => 'required|string|in:active,inactive', // حالة التسجيل
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $enrollment = Enrollment::create([
+            'user_id' => $request->user_id,
+            'course_id' => $request->course_id,
+            'status' => $request->status,
+            // إضافة المزيد من الحقول حسب الحاجة
+        ]);
+
+        return response()->json($enrollment, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Enrollment  $enrollment
-     * @return \Illuminate\Http\Response
+     * عرض تفاصيل تسجيل معين.
      */
     public function show(Enrollment $enrollment)
     {
-        //
+        return response()->json($enrollment);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Enrollment  $enrollment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Enrollment $enrollment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Enrollment  $enrollment
-     * @return \Illuminate\Http\Response
+     * تحديث تسجيل معين في قاعدة البيانات.
      */
     public function update(Request $request, Enrollment $enrollment)
     {
-        //
+        $request->validate([
+            'user_id' => 'sometimes|required|exists:users,id',
+            'course_id' => 'sometimes|required|exists:courses,id',
+            'status' => 'sometimes|required|string|in:active,inactive',
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $enrollment->update($request->only('user_id', 'course_id', 'status'));
+
+        return response()->json($enrollment);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Enrollment  $enrollment
-     * @return \Illuminate\Http\Response
+     * حذف تسجيل معين من قاعدة البيانات.
      */
     public function destroy(Enrollment $enrollment)
     {
-        //
+        $enrollment->delete();
+        return response()->json(null, 204);
     }
 }

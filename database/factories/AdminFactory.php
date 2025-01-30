@@ -23,7 +23,7 @@ class AdminFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->password(),
-            'role' => 'admin', // You can set it to 'admin' by default
+            'role' => $this->faker->randomElement([1, 2]), // Randomly assigns either 1 (admin) or 2 (coach)
             'picture' => $this->faker->imageUrl(),
             'te_id' => strtoupper(Str::random(4)), // Random 4-letter TE-ID
         ];

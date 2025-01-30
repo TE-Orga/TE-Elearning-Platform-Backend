@@ -8,78 +8,73 @@ use Illuminate\Http\Request;
 class ExamResultController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض قائمة نتائج الامتحانات.
      */
     public function index()
     {
-        //
+        $examResults = ExamResult::all();
+        return response()->json($examResults);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * عرض نموذج لإنشاء نتيجة امتحان جديدة.
      */
     public function create()
     {
-        //
+        // يمكن إرجاع نموذج إنشاء نتيجة الامتحان هنا
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * تخزين نتيجة امتحان جديدة في قاعدة البيانات.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id', // تأكد من وجود المستخدم
+            'exam_id' => 'required|exists:exams,id', // تأكد من وجود الامتحان
+            'score' => 'required|integer|min:0', // درجة الامتحان
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $examResult = ExamResult::create([
+            'user_id' => $request->user_id,
+            'exam_id' => $request->exam_id,
+            'score' => $request->score,
+            // إضافة المزيد من الحقول حسب الحاجة
+        ]);
+
+        return response()->json($examResult, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ExamResult  $examResult
-     * @return \Illuminate\Http\Response
+     * عرض تفاصيل نتيجة امتحان معينة.
      */
     public function show(ExamResult $examResult)
     {
-        //
+        return response()->json($examResult);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExamResult  $examResult
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExamResult $examResult)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ExamResult  $examResult
-     * @return \Illuminate\Http\Response
+     * تحديث نتيجة امتحان معينة في قاعدة البيانات.
      */
     public function update(Request $request, ExamResult $examResult)
     {
-        //
+        $request->validate([
+            'score' => 'sometimes|required|integer|min:0',
+            // إضافة المزيد من القواعد حسب الحاجة
+        ]);
+
+        $examResult->update($request->only('score'));
+
+        return response()->json($examResult);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ExamResult  $examResult
-     * @return \Illuminate\Http\Response
+     * حذف نتيجة امتحان معينة من قاعدة البيانات.
      */
     public function destroy(ExamResult $examResult)
     {
-        //
+        $examResult->delete();
+        return response()->json(null, 204);
     }
 }

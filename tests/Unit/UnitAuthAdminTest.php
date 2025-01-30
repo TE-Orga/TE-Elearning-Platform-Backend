@@ -6,7 +6,7 @@ use App\Models\Admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AuthAdminTest extends TestCase
+class UnitAuthAdminTest extends TestCase
 {
     use RefreshDatabase; // Reset the database after each test
 

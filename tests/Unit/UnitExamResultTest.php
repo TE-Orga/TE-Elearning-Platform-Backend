@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Exam;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExamResultTest extends TestCase
+class UnitExamResultTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -6,7 +6,7 @@ use App\Models\Answer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AnswerTest extends TestCase
+class UnitAnswerTest extends TestCase
 {
     use RefreshDatabase; // Resets the database after each test
 

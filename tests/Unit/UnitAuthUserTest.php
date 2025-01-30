@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AuthUserTest extends TestCase
+class UnitAuthUserTest extends TestCase
 {
     use RefreshDatabase; // Reset the database after each test
 

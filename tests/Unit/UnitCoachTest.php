@@ -6,7 +6,7 @@ use App\Models\Admin; // Using the Admin model since coaches are stored as admin
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CoachTest extends TestCase
+class UnitCoachTest extends TestCase
 {
     use RefreshDatabase; // Reset the database after each test
 

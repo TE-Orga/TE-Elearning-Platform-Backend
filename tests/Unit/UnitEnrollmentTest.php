@@ -8,7 +8,7 @@ use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EnrollmentTest extends TestCase
+class UnitEnrollmentTest extends TestCase
 {
     use RefreshDatabase; // Reset the database after each test
 

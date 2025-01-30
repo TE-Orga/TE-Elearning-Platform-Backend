@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 
 //----------------------------Authentication Routes For Users--------------------------------
@@ -19,20 +21,20 @@ Route::post('/Te-Admin-register', [AuthAdminController::class, 'register']);
 Route::post('/Admin-login', action: [AuthAdminController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/Admin-logout', [AuthAdminController::class, 'logout']);
 
-//----------------------------User Routes--------------------------------
-Route::middleware('auth:sanctum')->group(function () {
-    // Get a list of all users (for admin or authorized users)
-    Route::get('/users', [UserController::class, 'index']); // Get all users
+// Admin Routes
+Route::prefix('admins')->group(function () {
+    Route::get('/', [AdminController::class, 'index']);       // Display all admins
+    Route::post('/', [AdminController::class, 'store']);      // Store new admin
+    Route::get('/{admin}', [AdminController::class, 'show']); // Show specific admin
+    Route::put('/{admin}', [AdminController::class, 'update']); // Update specific admin
+    Route::delete('/{admin}', [AdminController::class, 'destroy']); // Delete specific admin
+});
 
-    // Get a specific user by ID
-    Route::get('/users/{id}', [UserController::class, 'show']); // Get a specific user by ID
-
-    // Create a new user (requires admin or authorized role)
-    Route::post('/users', [UserController::class, 'store']); // Create a new user
-
-    // Update an existing user (by user ID)
-    Route::put('/users/{id}', [UserController::class, 'update']); // Update a user
-
-    // Delete a user (by user ID)
-    Route::delete('/users/{id}', [UserController::class, 'destroy']); // Delete a user
+// Coach Routes
+Route::prefix('coaches')->group(function () {
+    Route::get('/', [CoachController::class, 'index']);       // Display all coaches
+    Route::post('/', [CoachController::class, 'store']);      // Store new coach
+    Route::get('/{coach}', [CoachController::class, 'show']); // Show specific coach
+    Route::put('/{coach}', [CoachController::class, 'update']); // Update specific coach
+    Route::delete('/{coach}', [CoachController::class, 'destroy']); // Delete specific coach
 });

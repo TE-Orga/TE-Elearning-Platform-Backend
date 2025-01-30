@@ -7,63 +7,53 @@ use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
-    /**
-     * عرض قائمة التسجيلات.
-     */
+    // Display the list of enrollments.
     public function index()
     {
         $enrollments = Enrollment::all();
         return response()->json($enrollments);
     }
 
-    /**
-     * عرض نموذج لإنشاء تسجيل جديد.
-     */
+    // Display the form to create a new enrollment.
     public function create()
     {
-        // يمكن إرجاع نموذج إنشاء التسجيل هنا
+        // You can return the enrollment creation form here.
     }
 
-    /**
-     * تخزين تسجيل جديد في قاعدة البيانات.
-     */
+    // Store a new enrollment in the database.
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id', // تأكد من وجود المستخدم
-            'course_id' => 'required|exists:courses,id', // تأكد من وجود الدورة
-            'status' => 'required|string|in:active,inactive', // حالة التسجيل
-            // إضافة المزيد من القواعد حسب الحاجة
+            'user_id' => 'required|exists:users,id', // Ensure the user exists
+            'course_id' => 'required|exists:courses,id', // Ensure the course exists
+            'status' => 'required|string|in:active,inactive', // Enrollment status
+            // Add more rules as needed
         ]);
 
         $enrollment = Enrollment::create([
             'user_id' => $request->user_id,
             'course_id' => $request->course_id,
             'status' => $request->status,
-            // إضافة المزيد من الحقول حسب الحاجة
+            // Add more fields as needed
         ]);
 
         return response()->json($enrollment, 201);
     }
 
-    /**
-     * عرض تفاصيل تسجيل معين.
-     */
+    // Display a specific enrollment's details.
     public function show(Enrollment $enrollment)
     {
         return response()->json($enrollment);
     }
 
-    /**
-     * تحديث تسجيل معين في قاعدة البيانات.
-     */
+    // Update a specific enrollment in the database.
     public function update(Request $request, Enrollment $enrollment)
     {
         $request->validate([
             'user_id' => 'sometimes|required|exists:users,id',
             'course_id' => 'sometimes|required|exists:courses,id',
             'status' => 'sometimes|required|string|in:active,inactive',
-            // إضافة المزيد من القواعد حسب الحاجة
+            // Add more rules as needed
         ]);
 
         $enrollment->update($request->only('user_id', 'course_id', 'status'));
@@ -71,9 +61,7 @@ class EnrollmentController extends Controller
         return response()->json($enrollment);
     }
 
-    /**
-     * حذف تسجيل معين من قاعدة البيانات.
-     */
+    // Delete a specific enrollment from the database.
     public function destroy(Enrollment $enrollment)
     {
         $enrollment->delete();

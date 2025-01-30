@@ -7,63 +7,53 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    /**
-     * عرض قائمة الدورات.
-     */
+    // Display the list of courses.
     public function index()
     {
         $courses = Course::all();
         return response()->json($courses);
     }
 
-    /**
-     * عرض نموذج لإنشاء دورة جديدة.
-     */
+    // Display the form to create a new course.
     public function create()
     {
-        // يمكن إرجاع نموذج إنشاء الدورة هنا
+        // You can return the course creation form here.
     }
 
-    /**
-     * تخزين دورة جديدة في قاعدة البيانات.
-     */
+    // Store a new course in the database.
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255', // عنوان الدورة
-            'description' => 'nullable|string', // وصف الدورة
-            'duration' => 'required|integer', // مدة الدورة
-            // إضافة المزيد من القواعد حسب الحاجة
+            'title' => 'required|string|max:255', // Course title
+            'description' => 'nullable|string', // Course description
+            'duration' => 'required|integer', // Course duration
+            // Add more rules as needed
         ]);
 
         $course = Course::create([
             'title' => $request->title,
             'description' => $request->description,
             'duration' => $request->duration,
-            // إضافة المزيد من الحقول حسب الحاجة
+            // Add more fields as needed
         ]);
 
         return response()->json($course, 201);
     }
 
-    /**
-     * عرض تفاصيل دورة معينة.
-     */
+    // Display a specific course's details.
     public function show(Course $course)
     {
         return response()->json($course);
     }
 
-    /**
-     * تحديث دورة معينة في قاعدة البيانات.
-     */
+    // Update a specific course in the database.
     public function update(Request $request, Course $course)
     {
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
             'duration' => 'sometimes|required|integer',
-            // إضافة المزيد من القواعد حسب الحاجة
+            // Add more rules as needed
         ]);
 
         $course->update($request->only('title', 'description', 'duration'));
@@ -71,9 +61,7 @@ class CourseController extends Controller
         return response()->json($course);
     }
 
-    /**
-     * حذف دورة معينة من قاعدة البيانات.
-     */
+    // Delete a specific course from the database.
     public function destroy(Course $course)
     {
         $course->delete();

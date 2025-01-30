@@ -7,34 +7,28 @@ use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
-    /**
-     * عرض قائمة الامتحانات.
-     */
+    // Display the list of exams.
     public function index()
     {
         $exams = Exam::all();
         return response()->json($exams);
     }
 
-    /**
-     * عرض نموذج لإنشاء امتحان جديد.
-     */
+    // Display the form to create a new exam.
     public function create()
     {
-        // يمكن إرجاع نموذج إنشاء الامتحان هنا
+        // You can return the exam creation form here.
     }
 
-    /**
-     * تخزين امتحان جديد في قاعدة البيانات.
-     */
+    // Store a new exam in the database.
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255', // عنوان الامتحان
-            'description' => 'nullable|string', // وصف الامتحان
-            'date' => 'required|date', // تاريخ الامتحان
-            'duration' => 'required|integer', // مدة الامتحان
-            // إضافة المزيد من القواعد حسب الحاجة
+            'title' => 'required|string|max:255', // Exam title
+            'description' => 'nullable|string', // Exam description
+            'date' => 'required|date', // Exam date
+            'duration' => 'required|integer', // Exam duration
+            // Add more rules as needed
         ]);
 
         $exam = Exam::create([
@@ -42,23 +36,19 @@ class ExamController extends Controller
             'description' => $request->description,
             'date' => $request->date,
             'duration' => $request->duration,
-            // إضافة المزيد من الحقول حسب الحاجة
+            // Add more fields as needed
         ]);
 
         return response()->json($exam, 201);
     }
 
-    /**
-     * عرض تفاصيل امتحان معين.
-     */
+    // Display a specific exam's details.
     public function show(Exam $exam)
     {
         return response()->json($exam);
     }
 
-    /**
-     * تحديث امتحان معين في قاعدة البيانات.
-     */
+    // Update a specific exam in the database.
     public function update(Request $request, Exam $exam)
     {
         $request->validate([
@@ -66,7 +56,7 @@ class ExamController extends Controller
             'description' => 'nullable|string',
             'date' => 'sometimes|required|date',
             'duration' => 'sometimes|required|integer',
-            // إضافة المزيد من القواعد حسب الحاجة
+            // Add more rules as needed
         ]);
 
         $exam->update($request->only('title', 'description', 'date', 'duration'));
@@ -74,9 +64,7 @@ class ExamController extends Controller
         return response()->json($exam);
     }
 
-    /**
-     * حذف امتحان معين من قاعدة البيانات.
-     */
+    // Delete a specific exam from the database.
     public function destroy(Exam $exam)
     {
         $exam->delete();

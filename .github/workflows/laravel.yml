@@ -36,7 +36,7 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Wait for MySQL service to start
-      run: dockerize -wait tcp://mysql:3306 -timeout 1m
+      run: dockerize dockerize -wait tcp://127.0.0.1:3306 -timeout 2m
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: mysql

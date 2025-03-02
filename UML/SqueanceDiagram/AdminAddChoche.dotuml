@@ -1,0 +1,34 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Admin Login and Add Coach"] {
+  actor admin
+  lifeline ":System" as system autoactivate
+  lifeline ":Server" as server autoactivate
+
+  admin --> system "Submit login form with credentials"
+  system --> server "Verify credentials"
+  
+  fragment alt "Invalid credentials" {
+    server -r-> system "Credentials are invalid"
+    system --> admin "Show error message"
+    deactivate system
+  }
+  
+  fragment alt "Valid credentials" {
+    server -r-> system "Credentials are valid"
+    system --> admin "Redirect to admin dashboard"
+    activate system
+
+    admin --> system "Request to add a new coach"
+    system --> server "Check admin authentication"
+    server -r-> system "Authentication verified"
+
+    admin --> system "Enter coach details"
+    system --> server "Validate coach details"
+    server -r-> system "Details valid"
+
+    system --> server "Add new coach to database"
+    server -r-> system "Coach added successfully"
+
+    system --> admin "Confirm coach added"
+    deactivate system
+  }
+}

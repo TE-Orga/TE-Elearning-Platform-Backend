@@ -1,0 +1,58 @@
+SequenceDiagram [frame=true framecolor=steelblue label="User Registration Process"] {
+  actor visitor as "Visitor"
+  actor employee as "Employee"
+  actor contractor as "Contractor"
+  lifeline ":System" as system autoactivate
+  lifeline ":Server" as server autoactivate
+
+  visitor --> system "Submit registration form with details"
+  system --> server "Validate registration details"
+  
+  fragment alt "Invalid details" {
+    server -r-> system "Registration details invalid"
+    system --> visitor "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid details" {
+    server -r-> system "Registration details valid"
+    system --> server "Store visitor data"
+    server -r-> system "Registration successful"
+    system --> visitor "Show confirmation message"
+    deactivate system
+  }
+  
+  employee --> system "Submit registration form with details"
+  system --> server "Validate registration details"
+  
+  fragment alt "Invalid details" {
+    server -r-> system "Registration details invalid"
+    system --> employee "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid details" {
+    server -r-> system "Registration details valid"
+    system --> server "Store employee data"
+    server -r-> system "Registration successful"
+    system --> employee "Show confirmation message"
+    deactivate system
+  }
+
+  contractor --> system "Submit registration form with details"
+  system --> server "Validate registration details"
+  
+  fragment alt "Invalid details" {
+    server -r-> system "Registration details invalid"
+    system --> contractor "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid details" {
+    server -r-> system "Registration details valid"
+    system --> server "Store contractor data"
+    server -r-> system "Registration successful"
+    system --> contractor "Show confirmation message"
+    deactivate system
+  }
+}

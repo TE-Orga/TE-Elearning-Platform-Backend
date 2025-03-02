@@ -1,0 +1,35 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Add Course for Coach"] {
+  actor coach as "Coach"
+  lifeline ":System" as system autoactivate
+  lifeline ":Server" as server autoactivate
+
+  coach --> system "Request to add a new course"
+  system --> server "Check if coach is authenticated"
+  
+  fragment alt "Invalid authentication" {
+    server -r-> system "Coach not authenticated"
+    system --> coach "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid authentication" {
+    server -r-> system "Coach authenticated"
+    system --> coach "Request course details"
+    coach --> system "Submit course details"
+    system --> server "Validate course details"
+    
+    fragment alt "Invalid course details" {
+      server -r-> system "Course details are invalid"
+      system --> coach "Show error message"
+      deactivate system
+    }
+
+    fragment alt "Valid course details" {
+      server -r-> system "Course details valid"
+      system --> server "Add course to database"
+      server -r-> system "Course added successfully"
+      system --> coach "Confirm course added"
+      deactivate system
+    }
+  }
+}

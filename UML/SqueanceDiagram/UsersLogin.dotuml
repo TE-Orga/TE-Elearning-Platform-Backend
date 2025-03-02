@@ -1,0 +1,55 @@
+SequenceDiagram [frame=true framecolor=steelblue label="User Login Process"] {
+  actor visitor as "Visitor"
+  actor employee as "Employee"
+  actor contractor as "Contractor"
+  lifeline ":System" as system autoactivate
+  lifeline ":Server" as server autoactivate
+
+  visitor --> system "Submit login form with credentials"
+  system --> server "Verify visitor credentials"
+  
+  fragment alt "Invalid credentials" {
+    server -r-> system "Credentials are invalid"
+    system --> visitor "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid credentials" {
+    server -r-> system "Credentials are valid"
+    system --> visitor "Redirect to dashboard"
+    activate system
+    deactivate system
+  }
+  
+  employee --> system "Submit login form with credentials"
+  system --> server "Verify employee credentials"
+  
+  fragment alt "Invalid credentials" {
+    server -r-> system "Credentials are invalid"
+    system --> employee "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid credentials" {
+    server -r-> system "Credentials are valid"
+    system --> employee "Redirect to dashboard"
+    activate system
+    deactivate system
+  }
+
+  contractor --> system "Submit login form with credentials"
+  system --> server "Verify contractor credentials"
+  
+  fragment alt "Invalid credentials" {
+    server -r-> system "Credentials are invalid"
+    system --> contractor "Show error message"
+    deactivate system
+  }
+
+  fragment alt "Valid credentials" {
+    server -r-> system "Credentials are valid"
+    system --> contractor "Redirect to dashboard"
+    activate system
+    deactivate system
+  }
+}
